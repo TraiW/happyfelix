@@ -105,15 +105,11 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text) {    
 
     // Create the payload for a basic text message
-    response = {
+      // will be added to the body of our request to the Send API
+      response = {
       "text": `Ouiii j'ai bien reçu tu as envoyé "${received_message.text}". Maintenant envoi moi une image!`
     }
-  }  else if (received_message.attachments) {
-  
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-  
-  } else if (received_message.attachments) {
+  }else if (received_message.attachments) {
     // Get the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
