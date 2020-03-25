@@ -1,23 +1,6 @@
 
 /**
- * 2020 Copyright 2017-present, Facebook, Inc. All rights reserved.
- *
- * This source code is licensed under the license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * Messenger Platform Quick Start Tutorial
- *
- * This is the completed code for the Messenger Platform quick start tutorial
- *
- * https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start/
- *
- * To run this code, you must do the following:
- *
- * 1. Deploy this code to a server running Node.js
- * 2. Run `npm install`
- * 3. Update the VERIFY_TOKEN
- * 4. Add your PAGE_ACCESS_TOKEN to your environment vars
- *
+*
  */
 
 'use strict';
@@ -107,7 +90,7 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message
       // will be added to the body of our request to the Send API
       response = {
-      "text": `Ouiii j'ai bien reçu tu as envoyé "${received_message.text}". Maintenant envoi moi une image!`
+      "text": `Bijour j'ai bien reçu ton message ! : "${received_message.text}". Maintenant envoi moi une image!`
     }
   }else if (received_message.attachments) {
     // Get the URL of the message attachment
@@ -159,6 +142,7 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response);
 }
 
+//Call Facebook Graph API to send back message
 function callSendAPI(sender_psid, response) {
   // Construct the message body
   let request_body = {
@@ -167,6 +151,7 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
+  
 
   // Send the HTTP request to the Messenger Platform
   request({
