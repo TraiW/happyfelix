@@ -29,11 +29,11 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 var hour = "17";
 var minutes = "48";
-var j = schedule.scheduleJob('48 16 * * *', function(){
+var j = schedule.scheduleJob('* '+minutes+' * * *', function(){
   console.log('The answer to life, the universe, and everything!');
   // Sends the response message
   var sender_psid_test = "2649815191795093";
-  var response_test = { "text": "C'est un test d'heure il devrait etre 17:42" }
+  var response_test = { "text": "C'est un test de message automatique, tu devrais le recevoir toutes les heures à "+minutes+" minutes !"}
   callSendAPI(sender_psid_test, response_test);
 });
 
