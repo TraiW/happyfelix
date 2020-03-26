@@ -1,44 +1,49 @@
-
-
 'use strict';
+const dotenv = require('dotenv');
+dotenv.config();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path')
+const req  = require('request') 
+
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
+const PORT = process.env.APP_PORT;
+const db = require('./queries')
 
-const { Pool } = require('pg');
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
-});
-
-const 
-  request = require('request'),
-  express = require('express'),
-  body_parser = require('body-parser'),
-  app = express().use(body_parser.json()); // creates express http server
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
   
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+app.listen(PORT, () => {
+  console.log(`Server running at: http://localhost:${PORT}/`);
+  console.log(' => webhook listening');
+});
+app.get('/', (req, res) => {
+  res.send({ message: 'endpoint working' });
+});
 
+ //***************************************************/ 
+//**************************DB methods****************/
+app.get('/users', db.getUsers)
+app.get('/users/:id', db.getUserById)
+app.get('/users/psid_number/:id', db.getUserByPSID)
+app.post('/users', db.createUser)
+app.put('/users/:id', db.updateUser)
+app.delete('/users/:id', db.deleteUser)
+app.delete('/users/psid_number/:id', db.deleteUserByPSID)
 
-
-app.get('/db', async (req, res) => {
-  try {
-    const client = await pool.connect()
-    const result = await client.query('SELECT * FROM PSID');
-    const results = { 'results': (result) ? result.rows : null};
-    console.log("results query: "+results);
-    client.release();
-  } catch (err) {
-    console.error(err);
-    res.send("Error " + err);
-  }
-})
+ //***************************************************/
 
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
- 
+  
   let body = req.body;
+    console.log("body :"+ body);
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
 
@@ -48,7 +53,7 @@ app.post('/webhook', (req, res) => {
       // Gets the body of the webhook event
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
-    
+    Cara
     
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
