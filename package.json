@@ -15,10 +15,9 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "core-js": "^3.6.4",
+    "ejs": "^3.0.1",
     "express": "^4.13.4",
-    "jade": "^1.11.0",
     "pg": "^7.18.2",
-    "pug": "^2.0.4",
     "request": "^2.72.0"
   },
   "engines": {
