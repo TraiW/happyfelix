@@ -18,7 +18,7 @@ const
   
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
-app.set('view engine', 'ejs')
+
 
 
 app.get('/db', async (req, res) => {
@@ -26,7 +26,7 @@ app.get('/db', async (req, res) => {
     const client = await pool.connect()
     const result = await client.query('SELECT * FROM PSID');
     const results = { 'results': (result) ? result.rows : null};
-    res.render('/db', results );
+    console.log("results query: "+results);
     client.release();
   } catch (err) {
     console.error(err);
