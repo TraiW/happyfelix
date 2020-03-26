@@ -5,6 +5,7 @@
 
 'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+var schedule = require('node-schedule');
 // Imports dependencies and set up http server
 const 
   request = require('request'),
@@ -14,6 +15,30 @@ const
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+
+//Send message to specific time
+// *    *    *    *    *    *
+// ┬    ┬    ┬    ┬    ┬    ┬
+// │    │    │    │    │    │
+// │    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
+// │    │    │    │    └───── month (1 - 12)
+// │    │    │    └────────── day of month (1 - 31)
+// │    │    └─────────────── hour (0 - 23)
+// │    └──────────────────── minute (0 - 59)
+// └───────────────────────── second (0 - 59, OPTIONAL)
+var j = schedule.scheduleJob('42 17 * * *', function(){
+  console.log('The answer to life, the universe, and everything!');
+  // Sends the response message
+  var sender_psid_test = "2649815191795093";
+  var response_test = { "text": "C'est un test d'heure il devrait etre 17:42" }
+  callSendAPI(sender_psid_test, response_test);
+});
+
+
+
+
+
+
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
