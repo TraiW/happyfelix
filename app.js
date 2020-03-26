@@ -18,6 +18,7 @@ const
   
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+app.set('view engine', 'jade');
 
 app.get('/db', async (req, res) => {
   try {
