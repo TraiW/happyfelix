@@ -29,7 +29,7 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 var hour = "17";
 var minutes = "48";
-var j = schedule.scheduleJob('* '+minutes+' * * *', function(){
+var j = schedule.scheduleJob('* 42 * * *', function(){
   console.log('The answer to life, the universe, and everything!');
   // Sends the response message
   var sender_psid_test = "2649815191795093";
