@@ -1,0 +1,8 @@
+CREATE TABLE account(
+   user_id serial PRIMARY KEY,
+   username VARCHAR (50) UNIQUE NOT NULL,
+   user_psid Integer NOT NULL 
+);
+create database d8rkfed7ca598b
+CREATE TABLE account( user_id serial PRIMARY KEY, username VARCHAR (50) UNIQUE NOT NULL, user_psid Integer NOT NULL );
+INSERT INTO account (username, user_psid) VALUES ('valentin','0669046575');

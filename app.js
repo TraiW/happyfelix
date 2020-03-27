@@ -11,6 +11,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 const PORT = process.env.APP_PORT;
 const db = require('./queries')
+const queries = require('./query_nonAPi')
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -61,18 +62,30 @@ app.post('/webhook', (req, res) => {
       console.log("=> WEBHOOK_EVENT RECEIVED : "+webhook_event);
       console.log("=> WEBHOOK_EVENT.MESSAGE RECEIVED : "+webhook_event.message);
       console.log("=> WEBHOOK_EVENT.POSTBACK : "+webhook_event.postback);
-
+      
+  
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       //console.log('Sender PSID: ' + sender_psid);
-    
-      // Check if the event is a message or postback and
-      // pass the event to the appropriate handler function
-      if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);        
-      } else if (webhook_event.postback) {
-        handlePostback(sender_psid, webhook_event.postback);
+      if(webhook_event.postback){
+        queries.getUserByPSID(sender_psid, function(err, result_query){
+          if(result_query == 0){
+            console.log("Utilisateur pas en DB")
+          } 
+        });
+      }else
+      {
+        // Check if the event is a message or postback and
+              // pass the event to the appropriate handler function
+              if (webhook_event.message) {
+                handleMessage(sender_psid, webhook_event.message);        
+              } else if (webhook_event.postback) {
+                handlePostback(sender_psid, webhook_event.postback);
+              }
       }
+
+      
+      
       
     });
     // Returns a '200 OK' response to all requests
