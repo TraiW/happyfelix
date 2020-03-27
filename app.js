@@ -67,11 +67,12 @@ app.post('/webhook', (req, res) => {
   
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      //console.log('Sender PSID: ' + sender_psid);
+      console.log('webhook_event.sender: ' + webhook_event.sender);
       if(webhook_event.postback){
         queries.getUserByPSID(sender_psid, function(err, result_query){
           if(result_query == 0){
-            console.log("Utilisateur pas en DB")
+            console.log("Utilisateur pas en DB");
+           // queries.createUser()
           } 
         });
       }else
