@@ -44,4 +44,5 @@ var createUser = function(name,psid_number, callback) {
 
 module.exports = {
     getUserByPSID,
+    createUser,
   }

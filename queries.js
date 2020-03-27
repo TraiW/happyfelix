@@ -8,7 +8,6 @@ let connectionString = {
   port: process.env.DB_PORT,
   host: process.env.DATABASE_URL
 };
-console.log("=> Environement DB : "+env)
 // checking to know the environment and suitable connection string to use
 if (env === 'development') {
   connectionString.database = process.env.DB_NAME;
