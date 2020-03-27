@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 }));
   
 // Sets server port and logs message on success
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
   console.log(' => webhook listening');
 });
