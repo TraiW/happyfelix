@@ -15,7 +15,7 @@ if (env === 'development') {
   connectionString.database = process.env.DB_NAME;
 } else {
   connectionString = {
-  connectionString: process.env.DATABASE_URL,
+  connectionString: 'postgres://srrqenjxjdmgik:8315ed3b80426a9373770951fe7c6db98f8a47c9706bfc8219c4e3e33507ee4a@ec2-176-34-97-213.eu-west-1.compute.amazonaws.com:5432/d8rkfed7ca598b',
   ssl: true
   };
 };
