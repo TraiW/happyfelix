@@ -111,7 +111,6 @@ app.get('/webhook', (req, res) => {
     }
   }
 });
-
 function handleMessage(sender_psid, received_message) {
 
   let response;
@@ -183,7 +182,9 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-    // Send the HTTP request to the Messenger Platform
+  
+
+  // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
