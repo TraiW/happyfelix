@@ -1,12 +1,25 @@
 const Pool = require('pg').Pool
-const pool = new Pool({
+const env = process.env.NODE_ENV || 'development';
+
+let connectionString = {
   user: process.env.DB_USER,
-  host: process.env.DATABASE_URL,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
-})
-
+  host: process.env.DATABASE_URL
+};
+console.log("=> Environement DB : "+env)
+const pool = new Pool(connectionString)
+// checking to know the environment and suitable connection string to use
+if (env === 'development') {
+  connectionString.database = process.env.DB_NAME;
+} else {
+  connectionString = {
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+  };
+};
+pool.on('connect', () => console.log('connected to db'));
 const getUsers = (request, response) => {
     pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
       if (error) {

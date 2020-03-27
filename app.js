@@ -16,11 +16,18 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-  
+const env = process.env.NODE_ENV || 'development';
+console.log("=> Environement app : "+env)
+
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running at: http://localhost:${PORT}/`);
-  console.log(' => webhook listening');
+  if (env == 'development'){
+    console.log(` => Server running at: http://localhost:${PORT}/`);
+
+  }else{
+    console.log(`Server running at: ${env}`);
+  }
+  console.log(' => webhook started and currently listening');
 });
 app.get('/', (req, res) => {
   res.send({ message: 'endpoint working' });
