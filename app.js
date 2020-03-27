@@ -50,7 +50,6 @@ app.delete('/users/psid_number/:id', db.deleteUserByPSID)
 app.post('/webhook', (req, res) => {  
   
   let body = req.body;
-    console.log("body :"+ body);
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
 
@@ -59,16 +58,17 @@ app.post('/webhook', (req, res) => {
 
       // Gets the body of the webhook event
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
- 
+      console.log("=> WEBHOOK_EVENT RECEIVED : "+webhook_event);
+      console.log("=> WEBHOOK_EVENT.MESSAGE RECEIVED : "+webhook_event.message);
+      console.log("=> WEBHOOK_EVENT.POSTBACK : "+webhook_event.postback);
+
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender PSID: ' + sender_psid);
+      //console.log('Sender PSID: ' + sender_psid);
     
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        //if(webhook_event.message.)
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
@@ -158,7 +158,6 @@ function handleMessage(sender_psid, received_message) {
 }
 
 function handlePostback(sender_psid, received_postback) {
-  console.log('ok')
    let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
