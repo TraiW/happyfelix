@@ -50,7 +50,7 @@ app.delete('/users/psid_number/:id', db.deleteUserByPSID)
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
-  console.log("==> REQ : "+req)
+  console.log("==> REQ : "+JSON.stringify(req, null, 4))
   let body = req.body;
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
