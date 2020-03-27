@@ -11,7 +11,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 const PORT = process.env.APP_PORT;
 const db = require('./queries')
-const queries = require('./query_nonAPi')
+const queries = require('./query_nonapi')
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
