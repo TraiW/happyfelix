@@ -23,7 +23,7 @@ const pool = new Pool(connectionString);
 pool.on('connect', () => console.log('connected to db'));
 
 const getUsers = (request, response) => {
-    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM account ORDER BY user_id ASC', (error, results) => {
       if (error) {
         throw error
       }
@@ -34,7 +34,7 @@ const getUsers = (request, response) => {
   const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
   
-    pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM account WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
@@ -45,7 +45,7 @@ const getUsers = (request, response) => {
   const getUserByPSID = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('SELECT * FROM users WHERE psid_number = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM account WHERE user_psid = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
@@ -55,7 +55,7 @@ const getUsers = (request, response) => {
 
   const createUser = (request, response) => {
     const { name, psid_number } = request.body
-    pool.query('INSERT INTO users (name, psid_number) VALUES ($1, $2) returning id', 
+    pool.query('INSERT INTO account (username, user_psid) VALUES ($1, $2) returning user_id', 
     [name, psid_number], 
     (error, results) => {
       if (error) {
@@ -72,7 +72,7 @@ const getUsers = (request, response) => {
     const { name, psid_number } = request.body
   
     pool.query(
-      'UPDATE users SET name = $1, psid_number = $2 WHERE id = $3',
+      'UPDATE account SET username = $1, user_psid = $2 WHERE user_id = $3',
       [name, psid_number, id],
       (error, results) => {
         if (error) {
@@ -86,7 +86,7 @@ const getUsers = (request, response) => {
   const deleteUser = (request, response) => {
     const id = parseInt(request.params.id)
   
-    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM account WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
@@ -97,7 +97,7 @@ const getUsers = (request, response) => {
   const deleteUserByPSID = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('DELETE FROM users WHERE psid_number = $1', [id], (error, results) => {
+    pool.query('DELETE FROM account WHERE user_psid = $1', [id], (error, results) => {
       if (error) {
         throw error
       }
