@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path')
 const req  = require('request') 
-
+const request = require('request'),
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 const PORT = process.env.APP_PORT;
