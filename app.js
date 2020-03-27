@@ -50,7 +50,7 @@ app.delete('/users/psid_number/:id', db.deleteUserByPSID)
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
-  
+  console.log("==> REQ : "+req)
   let body = req.body;
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
@@ -60,9 +60,9 @@ app.post('/webhook', (req, res) => {
 
       // Gets the body of the webhook event
       let webhook_event = entry.messaging[0];
-      console.log("=> WEBHOOK_EVENT RECEIVED : "+webhook_event);
-      console.log("=> WEBHOOK_EVENT.MESSAGE RECEIVED : "+webhook_event.message);
-      console.log("=> WEBHOOK_EVENT.POSTBACK : "+webhook_event.postback);
+      // console.log("=> WEBHOOK_EVENT RECEIVED : "+webhook_event);
+      // console.log("=> WEBHOOK_EVENT.MESSAGE RECEIVED : "+webhook_event.message);
+      // console.log("=> WEBHOOK_EVENT.POSTBACK : "+webhook_event.postback);
       
   
       // Get the sender PSID
@@ -72,7 +72,7 @@ app.post('/webhook', (req, res) => {
         queries.getUserByPSID(sender_psid, function(err, result_query){
           if(result_query == 0){
             console.log("Utilisateur pas en DB");
-           // queries.createUser()
+            //queries.createUser()
           } 
         });
       }else

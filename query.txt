@@ -6,3 +6,19 @@ CREATE TABLE account(
 create database d8rkfed7ca598b
 CREATE TABLE account( user_id serial PRIMARY KEY, username VARCHAR (50) UNIQUE NOT NULL, user_psid Integer NOT NULL );
 INSERT INTO account (username, user_psid) VALUES ('valentin','0669046575');
+INSERT INTO account (username, user_psid) VALUES ('valentins','06690465750669046575');
+
+ALTER TABLE account ALTER COLUMN user_psid TYPE bigint;
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "greeting": [
+    {
+      "locale":"default",
+      "text":"Hello! {user_first_name}, je m'appelle Felix et je suis la pour apporter des bonnes nouvelles au mondes :)" 
+    }, {
+      "locale":"fr_FR",
+      "text":"J'ai plein d'amis que tu vas connaitre au fur et à mesure, comment tu vas sinon ?"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAALERtTvD8wBADbNvg1ZC1yn7XcDwz1vjKspcg5r0qpvZBU0U7BhN7w2K7DaZB8OZBV96R5cc6ecwroKy4cJyOXDJASBCJ6fJKJVsjXIr6i9Tcjd95pvMK10h83D3uuJkTcRUB7Yb0iskzM04HKZCZAkA1qBvMLsUirKW8PlOcPTYMtmE73LFZCGbvXXJsTFncZD"
