@@ -44,13 +44,30 @@ app.post('/users', db.createUser)
 app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 app.delete('/users/psid_number/:id', db.deleteUserByPSID)
-
  //***************************************************/
 
+//  const API_AI_TOKEN = "1c2a980e0d8d4aea98f8ce9fc3202436";
+//  const apiAiClient = require("apiai")(API_AI_TOKEN);
+
+//  module.exports = event => {
+//    const senderId = event.sender.id;
+//    const message = event.message.text;
+//    const apiaiSession = apiAiClient.textRequest(message, {
+//      sessionId: "crowdbotics_bot"
+//    });
+//    apiaiSession.on("response", response => {
+//      const result = response.result.fulfillment.speech;
+//      callSendAPI(senderId, result);
+//    });
+//    apiaiSession.on("error", error => console.log(error));
+//    apiaiSession.end();
+//  };
+//  //***************************************************/
+ 
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
-  console.log("==> REQ : "+JSON.stringify(req, null, 4))
+ // console.log("==> REQ : "+req.body)
   let body = req.body;
   // Checks this is an event from a page subscription
   if (body.object === 'page') {
