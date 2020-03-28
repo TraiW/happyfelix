@@ -84,6 +84,7 @@ app.post('/webhook', (req, res) => {
   
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
+      console.log("PSID : "+sender_psid)
       console.log('webhook_event.sender: ' + webhook_event.sender);
       if(webhook_event.postback){
         queries.getUserByPSID(sender_psid, function(err, result_query){
